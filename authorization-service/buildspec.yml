@@ -1,0 +1,27 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+      docker: latest
+  pre_build:
+    commands:
+      - echo "Entered the pre-build phase"
+      - $(aws ecr get-login  --no-include-email --region us-east-2)
+  build:
+    commands:
+      - echo "Entered build phase"
+      - cd authorization-service
+      - mvn compile
+      - mvn clean package -Dmaven.test.skip=true
+      - echo "building docker image"
+      - docker build -t cde20ij012pod4-service-registry:latest .
+      - docker tag cde20ij012pod4-service-registry:latest 234825976347.dkr.ecr.us-east-2.amazonaws.com/cde20ij012pod4-service-registry:latest
+  post_build:
+    commands:
+    - echo "Entered the post-build phase"
+    - docker push 234825976347.dkr.ecr.us-east-2.amazonaws.com/cde20ij012pod4-service-registry:latest
+    - printf '[{"name":"cde20ij012pod4auth-container","imageUri":"%s"}]' 234825976347.dkr.ecr.us-east-2.amazonaws.com/cde20ij012pod4-service-registry:latest > taskdefinition.json
+artifacts:
+  files:
+    - authorization-service/taskdefinition.json

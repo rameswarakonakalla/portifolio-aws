@@ -1,0 +1,27 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+      docker: latest
+  pre_build:
+    commands:
+      - echo "Entered the pre-build phase"
+      - $(aws ecr get-login  --no-include-email --region us-east-2)
+  build:
+    commands:
+      - echo "Entered build phase"
+      - cd daily-sharePrice
+      - mvn compile
+      - mvn clean package -Dmaven.test.skip=true
+      - echo "building docker image"
+      - docker build -t share-price-registry:latest .
+      - docker tag share-price-registry:latest 234825976347.dkr.ecr.us-east-2.amazonaws.com/share-price-registry:latest
+  post_build:
+    commands:
+    - echo "Entered the post-build phase"
+    - docker push 234825976347.dkr.ecr.us-east-2.amazonaws.com/share-price-registry:latest
+    - printf '[{"name":"share-price-container","imageUri":"%s"}]' 234825976347.dkr.ecr.us-east-2.amazonaws.com/share-price-registry:latest > taskdefinition.json
+artifacts:
+  files:
+    - daily-sharePrice/taskdefinition.json

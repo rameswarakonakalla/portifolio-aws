@@ -1,0 +1,10 @@
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\ServletInitializer.java
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\service\WebportalService.java
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\feignclient\CalculateNetworthFeignClient.java
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\WebPortalApplication.java
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\feignclient\AuthClient.java
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\model\UserData.java
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\model\Asset.java
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\model\AuthResponse.java
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\model\SellObjectMap.java
+D:\MFPE\pms ruksar\WebController\src\main\java\com\cognizant\webservice\controller\WebPortalController.java
